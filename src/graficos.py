@@ -112,7 +112,7 @@ def f1_por_classe(p: pd.DataFrame) -> tuple[str, dict]:
 
 
 def fig_comparacao(m: pd.DataFrame):
-    """Diferença pareada de F1 macro (filtrado - original) em cada dobra."""
+    """Diferença pareada de F1 macro (filtrado - original) em cada fold."""
     fig, ax = plt.subplots(figsize=(LARGURA, 1.75))
     ypos = np.arange(len(NOMES_MODELOS))[::-1]
     for y, nome in zip(ypos, NOMES_MODELOS):
@@ -121,9 +121,9 @@ def fig_comparacao(m: pd.DataFrame):
         d = f.f1_macro.values - o.f1_macro.values
         jitter = np.linspace(-0.16, 0.16, len(d))
         ax.scatter(d, y + jitter, s=16, facecolor="white", edgecolor=AZUL, lw=1.1, zorder=3,
-                   label="Dobra" if y == ypos[0] else None)
+                   label="Fold" if y == ypos[0] else None)
         ax.plot([d.mean()] * 2, [y - 0.3, y + 0.3], color=LARANJA, lw=2.2, zorder=4,
-                label="Média das 5 dobras" if y == ypos[0] else None)
+                label="Média dos 5 folds" if y == ypos[0] else None)
     ax.axvline(0, color=TINTA2, lw=0.8, zorder=2)
     ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(
         lambda v, _: f"{v:.1f}".replace(".", ",").replace("-", "−")))
@@ -150,7 +150,7 @@ def fig_sensibilidade(m: pd.DataFrame):
     dims = [g.xs(c, level="condicao")["d"].mean() for c in conds]
     ax.set_xticks(x, [f"{a}\n(D={d:.0f})" if i else f"{a}\n(D={d:.0f})" for i, (a, d) in
                       enumerate(zip([r.replace("\n", " ") for r in rot], dims))])
-    ax.set_xlabel(r"Limiar de correlação absoluta (D = atributos retidos, média das dobras)")
+    ax.set_xlabel(r"Limiar de correlação absoluta (D = atributos retidos, média dos folds)")
     ax.set_ylabel("F1 macro (%)")
     ax.grid(axis="y", color=GRADE, lw=0.5)
     ax.set_axisbelow(True)
