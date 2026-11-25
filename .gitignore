@@ -1,0 +1,27 @@
+# Ambiente e caches
+.venv/
+__pycache__/
+*.pyc
+
+# Base baixada automaticamente por src/dados.py (não redistribuída)
+dados/
+
+# Material interno, não público
+_legado/
+source-manuscript/
+documentos-requisitos-professor/
+latex-compiler/
+latex-reviewer/
+.gemini/
+REGRAS_DO_PROJETO.md
+resultados_log.txt
+
+# Auxiliares do LaTeX
+artigo/*.aux
+artigo/*.bbl
+artigo/*.blg
+artigo/*.log
+artigo/*.out
+artigo/*.synctex.gz
+artigo/*.fls
+artigo/*.fdb_latexmk
